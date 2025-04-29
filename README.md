@@ -6,30 +6,24 @@ A Flask-based admin interface for the Archi-N-Tier application.
 
 1. Create a virtual environment with uv:
 
-    ```
+    ```bash
     uv venv
     source .venv/bin/activate  # On Windows: .venv\Scripts\activate
     ```
 
 2. Install the dependencies with uv:
 
-    ```
+    ```bash
     uv pip install -r requirements.txt
     ```
 
-3. Install additional packages:
+3. Run the application:
 
-    ```
-    uv add python-dotenv
-    ```
-
-4. Run the application:
-
-    ```
+    ```bash
     python main.py
     ```
 
-5. Open your browser and navigate to http://127.0.0.1:5000/
+4. Open your browser and navigate to <http://127.0.0.1:5000/>
 
 ## Project Structure
 
@@ -38,4 +32,4 @@ A Flask-based admin interface for the Archi-N-Tier application.
     -   Uses Tailwind CSS via CDN
 -   `static/` - Static files (CSS, JavaScript, images)
     -   `js/` - JavaScript files
--   `.env-example` - Example environment configuration
+-   `.env-example` - Example environment configuration _(add a .env with your configuration)_
