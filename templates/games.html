@@ -9,24 +9,35 @@
         </a>
     </div>
 
+    <div class="mb-4 bg-yellow-100 p-4 rounded text-yellow-800">
+        <p>
+            Les parties nécessitent au moins 4 joueurs et ont un maximum de 25%
+            de loups.
+        </p>
+    </div>
+
     <!-- Filtres -->
     <div class="mb-6 flex space-x-2">
-        <button
-            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded active">
+        <a
+            href="{{ url_for('list_games') }}"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded {% if status == 'all' %}bg-blue-100{% endif %}">
             Toutes
-        </button>
-        <button
-            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
+        </a>
+        <a
+            href="{{ url_for('list_games', status='in_progress') }}"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded {% if status == 'in_progress' %}bg-blue-100{% endif %}">
             En cours
-        </button>
-        <button
-            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
+        </a>
+        <a
+            href="{{ url_for('list_games', status='not_started') }}"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded {% if status == 'not_started' %}bg-blue-100{% endif %}">
             Pas commencées
-        </button>
-        <button
-            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
+        </a>
+        <a
+            href="{{ url_for('list_games', status='finished') }}"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded {% if status == 'finished' %}bg-blue-100{% endif %}">
             Terminées
-        </button>
+        </a>
     </div>
 
     <!-- Tableau des parties -->
@@ -36,7 +47,15 @@
                 <tr>
                     <th
                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Nom de la partie
+                        ID Partie
+                    </th>
+                    <th
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Dimensions
+                    </th>
+                    <th
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Tour
                     </th>
                     <th
                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -44,11 +63,11 @@
                     </th>
                     <th
                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Statut
+                        Loups
                     </th>
                     <th
                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Date de création
+                        Statut
                     </th>
                     <th
                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -57,64 +76,50 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Partie en cours -->
+                {% for game in games %}
                 <tr>
                     <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="flex items-center">
                             <div class="ml-3">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    Partie Stratégique #1
+                                    #{{ game.id }}
                                 </p>
                             </div>
                         </div>
-                    </td>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">3/4</p>
-                    </td>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <span
-                            class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                            <span
-                                aria-hidden
-                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                            <span class="relative">En cours</span>
-                        </span>
                     </td>
                     <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">
-                            12/06/2024
+                            {{ game.width }}x{{ game.height }}
                         </p>
                     </td>
                     <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <button class="text-blue-600 hover:text-blue-900">
-                            Rejoindre
-                        </button>
-                    </td>
-                </tr>
-
-                <!-- Partie pas commencée -->
-                <tr>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                            <div class="ml-3">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                    Partie Rapide #42
-                                </p>
-                            </div>
-                        </div>
+                        <p class="text-gray-900 whitespace-no-wrap">
+                            {{ game.current_turn }}/{{ game.nb_max_turn }}
+                        </p>
                     </td>
                     <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">1/6</p>
+                        <p class="text-gray-900 whitespace-no-wrap">
+                            {{ game.players|length }}/{{ game.max_players }} {%
+                            if game.players|length < 4 and game.status ==
+                            'not_started' %}
+                            <span class="text-red-600">(min 4)</span>
+                            {% endif %}
+                        </p>
                     </td>
                     <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <p class="text-gray-900 whitespace-no-wrap">
+                            {{ count_player_types(game.players, 'WOLF') }}/{{
+                            get_max_wolves(game.max_players) }}
+                        </p>
+                    </td>
+                    <td
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        {% if game.status == 'not_started' %}
                         <span
                             class="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
                             <span
@@ -122,46 +127,15 @@
                                 class="absolute inset-0 bg-yellow-200 opacity-50 rounded-full"></span>
                             <span class="relative">En attente</span>
                         </span>
-                    </td>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                            14/06/2024
-                        </p>
-                    </td>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex space-x-2">
-                            <button class="text-blue-600 hover:text-blue-900">
-                                Rejoindre
-                            </button>
-                            <button
-                                class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs"
-                                onclick="showStartGameModal('Partie Rapide #42')">
-                                Démarrer
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-
-                <!-- Partie terminée -->
-                <tr>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                            <div class="ml-3">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                    Tournoi Spécial
-                                </p>
-                            </div>
-                        </div>
-                    </td>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">5/5</p>
-                    </td>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        {% elif game.status == 'in_progress' %}
+                        <span
+                            class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                            <span
+                                aria-hidden
+                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                            <span class="relative">En cours</span>
+                        </span>
+                        {% else %}
                         <span
                             class="relative inline-block px-3 py-1 font-semibold text-gray-900 leading-tight">
                             <span
@@ -169,20 +143,58 @@
                                 class="absolute inset-0 bg-gray-200 opacity-50 rounded-full"></span>
                             <span class="relative">Terminée</span>
                         </span>
+                        {% endif %}
                     </td>
                     <td
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                            10/06/2024
-                        </p>
-                    </td>
-                    <td
-                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <button class="text-blue-600 hover:text-blue-900">
-                            Voir détails
-                        </button>
+                        <div class="flex space-x-2">
+                            {% if game.status == 'not_started' %} {% if
+                            game.players|length < game.max_players %}
+                            <a
+                                href="{{ url_for('join_game', game_id=game.id) }}"
+                                class="text-blue-600 hover:text-blue-900">
+                                Rejoindre
+                            </a>
+                            {% endif %} {% if can_start_game(game) %}
+                            <button
+                                class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs"
+                                onclick="showStartGameModal('{{ game.id }}')">
+                                Démarrer
+                            </button>
+                            {% elif game.players|length >= 4 and
+                            count_player_types(game.players, 'WOLF') == 0 %}
+                            <span class="text-orange-500 text-xs">
+                                Besoin de loups
+                            </span>
+                            {% elif game.players|length < 4 %}
+                            <span class="text-orange-500 text-xs">
+                                Besoin de plus de joueurs
+                            </span>
+                            {% endif %} {% elif game.status == 'in_progress' %}
+                            <a
+                                href="{{ url_for('view_game', game_id=game.id) }}"
+                                class="text-blue-600 hover:text-blue-900">
+                                Jouer
+                            </a>
+                            {% else %}
+                            <a
+                                href="{{ url_for('view_game', game_id=game.id) }}"
+                                class="text-blue-600 hover:text-blue-900">
+                                Voir détails
+                            </a>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
+                {% else %}
+                <tr>
+                    <td
+                        colspan="7"
+                        class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                        <p class="text-gray-900">Aucune partie disponible</p>
+                    </td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -215,8 +227,10 @@
             </h3>
             <div class="mt-2 px-7 py-3">
                 <p class="text-sm text-gray-500">
-                    Voulez-vous vraiment démarrer la partie
-                    <span id="gameNameToStart" class="font-bold"></span>?
+                    Voulez-vous vraiment démarrer la partie #<span
+                        id="gameIdToStart"
+                        class="font-bold"></span
+                    >?
                 </p>
             </div>
             <div class="items-center px-4 py-3">
@@ -245,9 +259,9 @@
 </div>
 
 <script>
-    function showStartGameModal(gameName) {
-        document.getElementById("gameNameToStart").textContent = gameName;
-        document.getElementById("gameIdInput").value = gameName; // Dans un cas réel, ce serait un ID
+    function showStartGameModal(gameId) {
+        document.getElementById("gameIdToStart").textContent = gameId;
+        document.getElementById("gameIdInput").value = gameId;
         document.getElementById("startGameModal").classList.remove("hidden");
     }
 

@@ -39,7 +39,14 @@
         <main>
             <div
                 class="container mx-auto w-4/5 mt-8 p-4 bg-white rounded-lg shadow-md">
-                {% block content %}
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %} {% for category, message in messages %}
+                <div
+                    class="p-4 mb-4 {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %} rounded">
+                    {{ message }}
+                </div>
+                {% endfor %} {% endif %} {% endwith %} {% block content %}
                 <div class="text-center">
                     <p class="text-gray-700 mb-6">
                         Welcome to the admin interface for Archi-N-Tier.

@@ -2,6 +2,17 @@
 <div class="w-full max-w-md mx-auto">
     <h2 class="text-xl font-bold mb-4">Créer une nouvelle partie</h2>
 
+    <div class="mb-4 bg-yellow-100 p-4 rounded text-yellow-800">
+        <p>
+            Les parties nécessitent au moins 4 joueurs et ont un maximum de 25%
+            de loups.
+        </p>
+        <p class="mt-2">
+            Les types de joueurs (Loup/Villageois) sont attribués aléatoirement
+            lors de l'inscription.
+        </p>
+    </div>
+
     <form
         method="POST"
         action="{{ url_for('create_game') }}"
@@ -9,15 +20,51 @@
         <div class="mb-4">
             <label
                 class="block text-gray-700 text-sm font-bold mb-2"
-                for="game_name">
-                Nom de la partie
+                for="nb_max_turn">
+                Nombre maximum de tours
             </label>
             <input
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="game_name"
-                name="game_name"
-                type="text"
-                placeholder="Entrez un nom pour la partie"
+                id="nb_max_turn"
+                name="nb_max_turn"
+                type="number"
+                min="10"
+                max="100"
+                value="30"
+                required />
+        </div>
+
+        <div class="mb-4">
+            <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="width">
+                Largeur du plateau
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="width"
+                name="width"
+                type="number"
+                min="5"
+                max="20"
+                value="10"
+                required />
+        </div>
+
+        <div class="mb-4">
+            <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="height">
+                Hauteur du plateau
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="height"
+                name="height"
+                type="number"
+                min="5"
+                max="20"
+                value="10"
                 required />
         </div>
 
@@ -32,23 +79,11 @@
                 id="max_players"
                 name="max_players"
                 required>
-                <option value="2">2 joueurs</option>
-                <option value="3">3 joueurs</option>
-                <option value="4">4 joueurs</option>
-                <option value="5">5 joueurs</option>
-                <option value="6">6 joueurs</option>
+                <option value="4">4 joueurs (1 loup)</option>
+                <option value="8">8 joueurs (2 loups)</option>
+                <option value="12">12 joueurs (3 loups)</option>
+                <option value="16">16 joueurs (4 loups)</option>
             </select>
-        </div>
-
-        <div class="mb-4">
-            <label class="flex items-center">
-                <input
-                    type="checkbox"
-                    class="form-checkbox h-5 w-5 text-blue-600"
-                    name="is_private"
-                    id="is_private" />
-                <span class="ml-2 text-gray-700">Partie privée</span>
-            </label>
         </div>
 
         <div class="flex items-center justify-between">
