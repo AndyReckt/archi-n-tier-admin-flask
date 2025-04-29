@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Archi-N-Tier Admin</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    </head>
+    <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+        <header class="bg-gray-800 text-white p-4 text-center">
+            <h1 class="text-2xl font-bold">Archi-N-Tier Admin Interface</h1>
+        </header>
+
+        <main>
+            <div
+                class="container mx-auto w-4/5 mt-8 p-4 bg-white rounded-lg shadow-md">
+                {% block content %}
+                <p class="text-gray-700">
+                    Welcome to the admin interface for Archi-N-Tier.
+                </p>
+                {% endblock %}
+            </div>
+        </main>
+
+        <footer class="bg-gray-800 text-white p-4 text-center mt-8">
+            <p>&copy; 2024 Archi-N-Tier</p>
+        </footer>
+
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </body>
+</html>
