@@ -20,7 +20,7 @@ A Flask-based admin interface for the Archi-N-Tier application.
 3. Run the application:
 
     ```bash
-    uv python main.py
+    uv run main.py
     ```
 
 4. Open your browser and navigate to <http://127.0.0.1:5000/>
