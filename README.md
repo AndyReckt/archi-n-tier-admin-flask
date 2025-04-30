@@ -4,14 +4,14 @@ A Flask-based admin interface for the Archi-N-Tier application.
 
 ## Setup
 
-1. Create a virtual environment with uv:
+1. Create a virtual environment with [uv](https://docs.astral.sh/uv/getting-started/installation/):
 
     ```bash
     uv venv
     source .venv/bin/activate  # On Windows: .venv\Scripts\activate
     ```
 
-2. Install the dependencies with uv:
+2. Install the dependencies with [uv](https://docs.astral.sh/uv/getting-started/installation/):
 
     ```bash
     uv pip install -r requirements.txt
